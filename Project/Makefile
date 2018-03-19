@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -g -Wall
-FILE = lexicon.c
+FILE = lexicon.c treeManager.c userManager.c fileManager.c
 
 all : lexicon
 	@echo "--------------------------------------------------------------"
