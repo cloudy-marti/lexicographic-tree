@@ -3,7 +3,7 @@
 
 typedef struct node{
 	unsigned char letter;
-	struct node *leftChild, rightBro;
+	struct node *leftChild, *rightBro;
 }Node, *Tree;
 
 #endif
