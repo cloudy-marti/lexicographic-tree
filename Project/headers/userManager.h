@@ -3,6 +3,6 @@
 
 char* initializeUserInput();
 char* userInput(char* input);
-int checkInput(char* input);
+void fixInput(char* input);
 
 #endif
