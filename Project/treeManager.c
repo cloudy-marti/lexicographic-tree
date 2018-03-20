@@ -9,23 +9,19 @@
 Tree search(Tree tree, char* word){
 
 	if(tree == NULL)
-		return NULL;
-    
+		return NULL;    
 	if(tree->letter == *word){
-		if(word[i] == '\0') // si tu veux parcourrir le tableau il faut faire la boucle for
+		if(*word == '\0')
 			return tree;
 		else 
 			return search(tree->leftChild, word++);
-	}
-    
-	else if(tree->letter < *word)
+	}else if(tree->letter < *word){
 		return NULL;
-    
-	else if(tree->letter > *word)
+	}else if(tree->letter > *word){
 		return search(tree->rightBro, word++);
-			
-	else return NULL;
-}
+	}else 
+		return NULL;
+} // est-ce qu'on ne retourne pas plutôt un int ? pour dire oui ou non le mot est là
 
 // exemple nul de main en considérant que l'arbre est rempli
 // int main(int argc, char** argv){

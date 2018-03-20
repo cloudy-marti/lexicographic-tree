@@ -17,7 +17,7 @@ char* userInput(char* input){
 	scanf("%51s", input);
 	printf("user has entered the word : %s\n", input);
 
-	char* userInput = "";
+	char* userInput = initializeUserInput();
 
 	strcpy(userInput, input);
 
@@ -25,24 +25,25 @@ char* userInput(char* input){
 
 	if(*input != '\0' && strcmp(input, userInput) != 0){
 		printf("without user's bs we have the word : %s\n", input);
-	}else if(*input == '\0'){
-		printf("ok letters please\n");
-	}else
+	}else if(strcmp(input, userInput) == 0){
 		printf("ok\n");
+	}else
+		printf("what\n");
 
 	return input;
 }
 
 void fixInput(char* input){
 
-	int i, j;
+	int i;
 	for(i = 0; input[i] != '\0'; i++){
 		while(!( (input[i] >= 'a' && input[i] <= 'z') || (input[i] >= 'A' && input[i] <= 'Z') /*|| (input[i] >= 'ü' && input[i] <= 'ù') || 
 			input[i] == '\0' */)){
-			for(j = i; input[j] != '\0'; ++j){
-				input[j] = input[j+1];
-			}
-			input[j] = '\0';
+			// for(j = i; input[j] != '\0'; j++){
+			// 	input[j] = input[j+1];
+			// 	printf("ok\n");
+			// }
+			// input[j] = '\0';
 		}
 	}
 }

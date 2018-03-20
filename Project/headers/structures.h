@@ -8,5 +8,4 @@ typedef struct node{
 	struct node *leftChild, *rightBro;
 }Node, *Tree;
 
-
 #endif

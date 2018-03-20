@@ -5,7 +5,9 @@ EXE = lexicon
 
 all : lexicon
 	@echo "--------------------------------------------------------------"
-	@echo "            to execute type: ./lexicon fileName &"
+	@echo "           to execute type: ./lexicon fileName.txt &"
+	@echo "              txt file has to be in file/ folder"
+	@echo "                 example : ./lexicon hp.txt &"
 	@echo "--------------------------------------------------------------"
 
 lexicon : 
