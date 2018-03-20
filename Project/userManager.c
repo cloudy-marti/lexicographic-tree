@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "headers/structures.h"
 #include "headers/userManager.h"
 #include <ctype.h>
@@ -16,12 +17,18 @@ char* userInput(char* input){
 	scanf("%51s", input);
 	printf("user has entered the word : %s\n", input);
 
+	char* userInput = "";
+
+	strcpy(userInput, input);
+
 	fixInput(input);
 
-	if(*input != '\0'){
+	if(*input != '\0' && strcmp(input, userInput) != 0){
 		printf("without user's bs we have the word : %s\n", input);
-	}else
+	}else if(*input == '\0'){
 		printf("ok letters please\n");
+	}else
+		printf("ok\n");
 
 	return input;
 }
@@ -30,8 +37,8 @@ void fixInput(char* input){
 
 	int i, j;
 	for(i = 0; input[i] != '\0'; i++){
-		while(!( (input[i] >= 'a' && input[i] <= 'z') || (input[i] >= 'A' && input[i] <= 'Z') || (input[i] >= 'ü' && input[i] <= 'ù') || 
-			input[i] == '\0' )){
+		while(!( (input[i] >= 'a' && input[i] <= 'z') || (input[i] >= 'A' && input[i] <= 'Z') /*|| (input[i] >= 'ü' && input[i] <= 'ù') || 
+			input[i] == '\0' */)){
 			for(j = i; input[j] != '\0'; ++j){
 				input[j] = input[j+1];
 			}
