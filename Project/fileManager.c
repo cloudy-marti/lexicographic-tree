@@ -5,31 +5,41 @@
 
 /* !!! PAS DE FONCTION MAIN !!! */
 
-void openFile(char* fileName, char* mode){
-
-	FILE* file;
-
+char* filePath(char* fileName){
 	printf("file name : %s\n", fileName);
 
-	char path[] = "files/";
+	char* path = "files/";
 	printf("The file %s is in the folder %s\n", fileName, path);
 
-	strcat(path, fileName);
+	strcat(path, fileName); // concatenate two strings
 	printf("your path : %s\n", path);
+	
+	return path;
+}
+// this function above allow us to retrieve the file path in a char*
 
+void getLexicon(char* fileName, char* mode){
+
+	char* path = filePath(fileName);
+
+	FILE* file;
 	file = fopen(path, mode);
 
-	int line = 0;
-	char input[800];
+	char* input = (char*)malloc(sizeof(char)*MAXWORD);
 
-	while(fgets(input, 800, file)){
-		line++;
-		printf("line %d -> %s\n", line, input);
+	while(fscanf(file, "%51s", input) != EOF){
+		printf("word -> %s\n", input);
+		// addWord(tree, input);
 	}
 
-	printf("end of program\n");
-
 	fclose(file);
+}
 
+void saveLexicon(Tree tree){
 
+}
+
+void closeFile(FILE* file){
+	fclose(file);
+	printf("end of program\n");
 }
