@@ -5,7 +5,7 @@
 
 /* !!! PAS DE FONCTION MAIN !!! */
 
-/*void openFile(char* fileName, char* mode){
+void openFile(char* fileName, char* mode){
 
 	FILE* file;
 
@@ -31,4 +31,5 @@
 
 	fclose(file);
 
-}*/
+
+}
