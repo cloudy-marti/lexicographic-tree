@@ -6,7 +6,7 @@
 /* !!! PAS DE FONCTION MAIN !!! */
 
 
-Tree allocationNode(char letter){
+Tree initializeTree(char letter){
 	Tree newtree=(Tree)malloc(sizeof(Node));
 	if (newtree != NULL) {
 		newtree->leftChild=NULL;
@@ -56,6 +56,50 @@ void printWord(Tree a, char* buffer, int index)
 	}
 }
 
+void infix(Tree tree)
+{
+
+	if(tree->leftChild!=NULL)
+	{
+		infix(tree->leftChild);
+	}
+	printf("%c ", tree->letter);
+	if(tree->rightBro!=NULL)
+	{
+		infix(tree->rightBro);
+	}
+}
+
+void prefix(Tree tree)
+{
+	printf("%c ", tree->letter);
+	if(tree->leftChild!=NULL)
+	{
+		prefix(tree->leftChild);
+	}
+
+	if(tree->rightBro!=NULL)
+	{
+		prefix(tree->rightBro);
+	}
+
+}
+void postfix(Tree tree)
+{
+	
+	if(tree->leftChild!=NULL)
+	{
+		postfix(tree->leftChild);
+	}
+
+	if(tree->rightBro!=NULL)
+	{
+		postfix(tree->rightBro);
+	}
+	printf("%c ", tree->letter);
+
+}
+
 
 
 
@@ -64,25 +108,25 @@ void printWord(Tree a, char* buffer, int index)
 int main(int argc, char** argv){
    Tree tree;
 
-   tree=allocationNode('c');
-   tree->leftChild=allocationNode('e');
-   tree->leftChild->leftChild=allocationNode('\0');
-   tree->leftChild->leftChild->rightBro=allocationNode('s');
-   tree->leftChild->leftChild->rightBro->leftChild=allocationNode('\0');
-   tree->rightBro=allocationNode('d');
-   tree->rightBro->leftChild=allocationNode('e');
-   tree->rightBro->leftChild->leftChild=allocationNode('s');
-   tree->rightBro->leftChild->leftChild->leftChild=allocationNode('\0');
-   tree->rightBro->rightBro=allocationNode('l');
-   tree->rightBro->rightBro->leftChild=allocationNode('e');
-   tree->rightBro->rightBro->leftChild->leftChild=allocationNode('\0');
-   tree->rightBro->rightBro->leftChild->leftChild->rightBro=allocationNode('s');
-   tree->rightBro->rightBro->leftChild->leftChild->rightBro->leftChild=allocationNode('\0');
-   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro=allocationNode('t');
-   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro->leftChild=allocationNode('t');
-   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro->leftChild->leftChild=allocationNode('r');
-   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro->leftChild->leftChild->leftChild=allocationNode('e');
-   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro->leftChild->leftChild->leftChild->leftChild=allocationNode('\0');
+   tree=initializeTree('c');
+   tree->leftChild=initializeTree('e');
+   tree->leftChild->leftChild=initializeTree('\0');
+   tree->leftChild->leftChild->rightBro=initializeTree('s');
+   tree->leftChild->leftChild->rightBro->leftChild=initializeTree('\0');
+   tree->rightBro=initializeTree('d');
+   tree->rightBro->leftChild=initializeTree('e');
+   tree->rightBro->leftChild->leftChild=initializeTree('s');
+   tree->rightBro->leftChild->leftChild->leftChild=initializeTree('\0');
+   tree->rightBro->rightBro=initializeTree('l');
+   tree->rightBro->rightBro->leftChild=initializeTree('e');
+   tree->rightBro->rightBro->leftChild->leftChild=initializeTree('\0');
+   tree->rightBro->rightBro->leftChild->leftChild->rightBro=initializeTree('s');
+   tree->rightBro->rightBro->leftChild->leftChild->rightBro->leftChild=initializeTree('\0');
+   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro=initializeTree('t');
+   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro->leftChild=initializeTree('t');
+   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro->leftChild->leftChild=initializeTree('r');
+   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro->leftChild->leftChild->leftChild=initializeTree('e');
+   tree->rightBro->rightBro->leftChild->leftChild->rightBro->rightBro->leftChild->leftChild->leftChild->leftChild=initializeTree('\0');
     char word[20]; // au hasard balathazar
     char buff[20];
     int i=0;
@@ -96,6 +140,7 @@ int main(int argc, char** argv){
 		printf("%s absent\n", word);
 
 	printWord(tree, buff, i);
-    
+	prefix(tree);
+
 	return EXIT_SUCCESS;
 }
