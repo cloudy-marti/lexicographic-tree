@@ -5,6 +5,25 @@
 
 /* !!! PAS DE FONCTION MAIN !!! */
 
+int createTree(Tree* tree, char* word){
+	if(*tree == NULL){
+		*tree = initializeTree(*word);
+		if(*word != '\0'){
+			return addWord(&(*tree)->leftChild, word+1);
+		}
+		else
+			return 1;
+	// empty tree ; create the first node and his children
+	}else if((*tree)->letter < *word){
+		return addWord(&(*tree)->leftBro, word);
+	}else if((*tree)->letter > *word){
+		return addWord(&(*tree)->rightBro, word);
+		//initializeTree((*tree)->letter);
+		//(*tree)->rightBro = 
+	}else
+		return 0;
+}
+
 char* filePath(char* fileName){
 	printf("file name : %s\n", fileName);
 
@@ -29,7 +48,7 @@ void getLexicon(char* fileName, char* mode){
 
 	while(fscanf(file, "%51s", input) != EOF){
 		printf("word -> %s\n", input);
-		// addWord(tree, input);
+		// createTree(tree, input);
 	}
 
 	fclose(file);
