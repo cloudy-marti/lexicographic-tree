@@ -20,6 +20,7 @@ Tree initializeTree(char letter){
 }
 
 int createTree(Tree* tree, char* word){
+
 	if(*tree == NULL){
 		printf("so far\n");
 		*tree = initializeTree(*word);
@@ -28,6 +29,8 @@ int createTree(Tree* tree, char* word){
 		}else
 			return 1;
 	// empty tree ; create the first node and its children
+	}else if((*tree)->letter == *word){
+		return createTree(&(*tree)->leftChild, word+1);
 	}else if((*tree)->letter < *word){
 		return createTree(&(*tree)->rightBro, word);
 	}else if((*tree)->letter > *word){
@@ -120,7 +123,7 @@ int main(int argc, char** argv){
 	char* word = (char*)malloc(sizeof(char)*MAXWORD); // MAXWORD : in structures.h -> 51
     char* buff = (char*)malloc(sizeof(char)*MAXWORD);
 
-    int i=0;
+    int i = 0;
 
 	Tree newTree;
 	char* wiWord = (char*)malloc(sizeof(char)*MAXWORD);
@@ -137,6 +140,8 @@ int main(int argc, char** argv){
 	}else
 		printf("word added successfully !\n");
 
+	printWord(newTree, buff, i);
+
 	printf("choose a word\n");
 	scanf("%s", newWord);
 
@@ -148,6 +153,7 @@ int main(int argc, char** argv){
 		printf("word added successfully !\n");
 
 	printWord(newTree, buff, i);
+
 
 return EXIT_SUCCESS;
 
