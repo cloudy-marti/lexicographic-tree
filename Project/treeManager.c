@@ -39,20 +39,19 @@ int search(Tree tree, char* word){
 				return 0;
 } 
 
-
-void printWord(Tree a, char* buffer, int index)
+void printWord(Tree tree, char* buffer, int index)
 {
-	if(a!=NULL)
+	if(tree!=NULL)
 	{
-		buffer[index]=a->letter;
+		buffer[index]=tree->letter;
 
-		if(a->letter=='\0')
+		if(tree->letter=='\0')
 			printf("%s\n", buffer);
 
 		else 
-			printWord(a->leftChild, buffer, index+1);
+			printWord(tree->leftChild, buffer, index+1);
 
-		printWord(a->rightBro, buffer, index);
+		printWord(tree->rightBro, buffer, index);
 	}
 }
 

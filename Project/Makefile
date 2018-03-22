@@ -16,6 +16,7 @@ treeManager.o:
 
 fileManager.o: treeManager.o
 	gcc -c fileManager.c $(CFLAGS)
+	
 lexicon: treeManager.o userManager.o fileManager.o
 	gcc lexicon.c $(CFLAGS) -o lexicon
 
