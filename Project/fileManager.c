@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "headers/structures.h"
+#include "headers/treeManager.h"
 
 /* !!! PAS DE FONCTION MAIN !!! */
 
@@ -9,25 +10,23 @@ int createTree(Tree* tree, char* word){
 	if(*tree == NULL){
 		*tree = initializeTree(*word);
 		if(*word != '\0'){
-			return addWord(&(*tree)->leftChild, word+1);
-		}
-		else
+			return createTree(&(*tree)->leftChild, word+1);
+		}else
 			return 1;
-	// empty tree ; create the first node and his children
+	// empty tree ; create the first node and its children
 	}else if((*tree)->letter < *word){
-		return addWord(&(*tree)->leftBro, word);
+		return createTree(&(*tree)->rightBro, word);
 	}else if((*tree)->letter > *word){
-		return addWord(&(*tree)->rightBro, word);
-		//initializeTree((*tree)->letter);
-		//(*tree)->rightBro = 
+		initializeTree((*tree)->letter);
+		(*tree)->rightBro = *tree;
+		return createTree(&(*tree)->rightBro, word);
 	}else
 		return 0;
 }
 
-char* filePath(char* fileName){
+char* filePath(char* fileName, char* path){
 	printf("file name : %s\n", fileName);
 
-	char* path = "files/";
 	printf("The file %s is in the folder %s\n", fileName, path);
 
 	strcat(path, fileName); // concatenate two strings
@@ -39,7 +38,7 @@ char* filePath(char* fileName){
 
 void getLexicon(char* fileName, char* mode){
 
-	char* path = filePath(fileName);
+	char* path = filePath(fileName, "files/");
 
 	FILE* file;
 	file = fopen(path, mode);
@@ -52,13 +51,9 @@ void getLexicon(char* fileName, char* mode){
 	}
 
 	fclose(file);
+	printf("file closed\n");
 }
 
 void saveLexicon(Tree tree){
 
-}
-
-void closeFile(FILE* file){
-	fclose(file);
-	printf("end of program\n");
 }

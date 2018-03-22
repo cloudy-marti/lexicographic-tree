@@ -1,6 +1,8 @@
 #ifndef FILEMANAGER__H
 #define FILEMANAGER__H
 
-void readFile(char* fileName, char* mode);
+char* filePath(char* fileName, char* path);
+void getLexicon(char* fileName, char* mode);
+
 
 #endif
