@@ -57,3 +57,4 @@ void getLexicon(char* fileName, char* mode){
 void saveLexicon(Tree tree){
 
 }
+

@@ -97,32 +97,39 @@ void postfix(Tree tree){
 
 }
 
-int createTree(Tree* tree, char* word){
+// int createTree(Tree* tree, char* word){
 
-	printf("beginning of function : %c\n", *word);
+// 	printf("beginning of function : %c\n", *word);
 
-	if(tree == NULL){
-		printf("ok ?\n");
-		*tree = initializeTree(*word);
-		if(*word != '\0'){
-			return createTree(&(*tree)->leftChild, word+1);
-		}else
-			return 1;
-	// empty tree ; create the first node and its children
+// 	*tree = initializeTree(*word);
+// 	if(*word != '\0'){
+// 		printf("creating tree\n");
+// 		return createTree(&(*tree)->leftChild, word+1);
+// 	}
+// 	else
+// 		printf("condition return 1\n");
+// 		return 1;
+	
+// 	// if(*tree == NULL){
+// 	// empty tree ; create the first node and its children
 
-	}else if((*tree)->letter < *word){
-		// printf("tree->letter smaller than word\n");
-		return createTree(&(*tree)->rightBro, word);
+// 	if(*tree != NULL){
+// 		if((*tree)->letter < *word){
+// 			printf("tree->letter smaller than word\n");
+// 			return createTree(&(*tree)->rightBro, word);
 
-	}else if((*tree)->letter > *word){
-		// printf("tree->letter bigger than word\n");
-		initializeTree((*tree)->letter);
-		(*tree)->rightBro = *tree;
-		return createTree(&(*tree)->leftChild, word+1);
+// 		}else if((*tree)->letter > *word){
+// 			printf("tree->letter bigger than word\n");
+// 			initializeTree((*tree)->letter);
+// 			(*tree)->rightBro = *tree;
+// 			return createTree(&(*tree)->leftChild, word+1);
 
-	}else
-		return 0;
-}
+// 		}else
+// 			printf("condition return 0\n");
+// 			return 0;
+// 		}else
+// 			return 0;
+// }
 
 // exemple nul de main en considérant que l'arbre est rempli
 int main(int argc, char** argv){
@@ -167,21 +174,32 @@ int main(int argc, char** argv){
 	prefix(tree);
 	printf("\n");
 
-	Tree newTree;
-	char* wiWord = (char*)malloc(sizeof(char)*MAXWORD);
+	// Tree newTree;
+	// char* wiWord = (char*)malloc(sizeof(char)*MAXWORD);
+	// char* newWord = (char*)malloc(sizeof(char)*MAXWORD);
 
-	printf("choose a word\n");
-	scanf("%s", wiWord);
+	// printf("choose a word\n");
+	// scanf("%s", wiWord);
 
-	int add = createTree(&newTree, wiWord);
-	printf("yep\n");
+	// int add = createTree(&newTree, wiWord);
+	// printf("yep\n");
 
-	if(add == 0){
-		printf("oops problem\n");
-	}else
-		printf("word added successfully !\n");
+	// if(add == 0){
+	// 	printf("oops problem\n");
+	// }else
+	// 	printf("word added successfully !\n");
 
-	printWord(newTree, buff, i);
+	// printf("choose a word\n");
+	// scanf("%s", newWord);
+
+	// int add2 = createTree(&newTree, newWord);
+
+	// if(add2 == 0){
+	// 	printf("oops problem\n");
+	// }else
+	// 	printf("word added successfully !\n");
+
+	// printWord(newTree, buff, i);
 
 	return EXIT_SUCCESS;
 }
