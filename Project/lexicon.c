@@ -1,3 +1,4 @@
+// authors : MARTI Emilie / SAJDAK Laurine
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
