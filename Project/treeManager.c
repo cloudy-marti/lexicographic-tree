@@ -81,6 +81,24 @@ void prefix(Tree tree){
 	}
 }
 
+void prefixSaveDico(Tree tree){
+
+	printf("%c", tree->letter);
+
+	if(tree->leftChild==NULL)
+		printf(" ");
+	if(tree->leftChild!=NULL){
+		prefix(tree->leftChild);
+		printf("'%cn'", 92);
+	}
+
+	if(tree->rightBro!=NULL){
+		
+		prefix(tree->rightBro);
+	}
+}
+
+
 /* Affichage à la console */
 
 void printWord(Tree tree, char* buffer, int index){
