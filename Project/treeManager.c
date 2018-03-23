@@ -57,45 +57,45 @@ void printWord(Tree tree, char* buffer, int index){
 	}
 }
 
-void infix(Tree tree){
-
-	if(tree->leftChild!=NULL){
-		infix(tree->leftChild);
-	}
-
-	printf("%c ", tree->letter);
-
-	if(tree->rightBro!=NULL){
-		infix(tree->rightBro);
-	}
-}
-
-void prefix(Tree tree){
-
-	printf("%c ", tree->letter);
-
-	if(tree->leftChild!=NULL){
-		prefix(tree->leftChild);
-	}
-
-	if(tree->rightBro!=NULL){
-		prefix(tree->rightBro);
-	}
-}
-
-void postfix(Tree tree){
-	
-	if(tree->leftChild!=NULL){
-		postfix(tree->leftChild);
-	}
-
-	if(tree->rightBro!=NULL){
-		postfix(tree->rightBro);
-	}
-
-	printf("%c ", tree->letter);
-
-}
+//void infix(Tree tree){
+//
+//	if(tree->leftChild!=NULL){
+//		infix(tree->leftChild);
+//	}
+//
+//	printf("%c ", tree->letter);
+//
+//	if(tree->rightBro!=NULL){
+//		infix(tree->rightBro);
+//	}
+//}
+//
+//void prefix(Tree tree){
+//
+//	printf("%c ", tree->letter);
+//
+//	if(tree->leftChild!=NULL){
+//		prefix(tree->leftChild);
+//	}
+//
+//	if(tree->rightBro!=NULL){
+//		prefix(tree->rightBro);
+//	}
+//}
+//
+//void postfix(Tree tree){
+//	
+//	if(tree->leftChild!=NULL){
+//		postfix(tree->leftChild);
+//	}
+//
+//	if(tree->rightBro!=NULL){
+//		postfix(tree->rightBro);
+//	}
+//
+//	printf("%c ", tree->letter);
+//
+//}
 
 // int createTree(Tree* tree, char* word){
 
