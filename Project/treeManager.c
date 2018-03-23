@@ -68,32 +68,18 @@ int search(Tree tree, char* word){
 				return 0;
 }
 
-void prefix(Tree tree){
-
-	printf("%c ", tree->letter);
-
-	if(tree->leftChild!=NULL){
-		prefix(tree->leftChild);
-	}
-
-	if(tree->rightBro!=NULL){
-		prefix(tree->rightBro);
-	}
-}
-
 void prefixSaveDico(Tree tree){
 
 	printf("%c", tree->letter);
 
-	if(tree->leftChild==NULL)
+	if(tree->leftChild == NULL)
 		printf(" ");
-	if(tree->leftChild!=NULL){
+	if(tree->leftChild != NULL){
 		prefix(tree->leftChild);
 		printf("'%cn'", 92);
 	}
 
-	if(tree->rightBro!=NULL){
-		
+	if(tree->rightBro != NULL){
 		prefix(tree->rightBro);
 	}
 }
