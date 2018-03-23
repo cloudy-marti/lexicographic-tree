@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "headers/structures.h"
+#include "headers/treeManager.h"
 
 /* ici les fonctions qui vont gérer la structure de l'arbre */
 

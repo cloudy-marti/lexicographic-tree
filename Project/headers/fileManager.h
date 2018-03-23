@@ -2,8 +2,8 @@
 #define FILEMANAGER__H
 
 char* filePath(char* fileName, char* path);
-void getLexicon(char* fileName, char* mode);
 char* fileExt(char* fileName, char* extension);
-void createFile(char* fileName, char* extension);
+void getLexicon(char* fileName, char* mode, Tree tree);
+void createFile(char* fileName, char* extension, char* input);
 
 #endif

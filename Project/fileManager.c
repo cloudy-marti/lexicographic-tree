@@ -2,25 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "headers/structures.h"
+#include "headers/fileManager.h"
 #include "headers/treeManager.h"
-
-int createTree(Tree* tree, char* word){
-	if(*tree == NULL){
-		*tree = initializeTree(*word);
-		if(*word != '\0'){
-			return createTree(&(*tree)->leftChild, word+1);
-		}else
-			return 1;
-	// empty tree ; create the first node and its children
-	}else if((*tree)->letter < *word){
-		return createTree(&(*tree)->rightBro, word);
-	}else if((*tree)->letter > *word){
-		initializeTree((*tree)->letter);
-		(*tree)->rightBro = *tree;
-		return createTree(&(*tree)->rightBro, word);
-	}else
-		return 0;
-}
 
 char* filePath(char* fileName, char* path){
 	printf("file name : %s\n", fileName);
@@ -34,24 +17,6 @@ char* filePath(char* fileName, char* path){
 }
 // this function above allow us to retrieve the file path in a char*
 
-void getLexicon(char* fileName, char* mode){
-
-	char* path = filePath(fileName, "files/");
-
-	FILE* file;
-	file = fopen(path, mode);
-
-	char* input = (char*)malloc(sizeof(char)*MAXWORD);
-
-	while(fscanf(file, "%51s", input) != EOF){
-		printf("word -> %s\n", input);
-		// createTree(tree, input);
-	}
-
-	fclose(file);
-	printf("file closed\n");
-}
-
 char* fileExt(char* fileName, char* extension){
 	printf("file name : %s\n", fileName);
 
@@ -63,14 +28,34 @@ char* fileExt(char* fileName, char* extension){
 	return fileName;
 }
 
-void createFile(char* fileName, char* extension){
+void getLexicon(char* fileName, char* mode, Tree tree){
 
-	char* path = filePath(fileExt(fileName, extension), "bin/");
+	char* path = filePath(fileName, "txt/");
 
-	FILE* newFile;
-	
+	FILE* file;
+	file = fopen(path, mode);
+
+	char* input = (char*)malloc(sizeof(char)*MAXWORD);
+
+	while(fscanf(file, "%51s", input) != EOF){
+		printf("word -> %s\n", input);
+		createTree(&tree, input);
+		createFile(fileName, ".L", input);
+	}
+
+	fclose(file);
+	printf("file closed\n");
 }
 
-void saveLexicon(Tree tree){
+void createFile(char* fileName, char* extension, char* input){
 
+	char* path = filePath(fileExt(fileName, extension), "bin/");
+	FILE* file;
+
+	file = fopen(path, "a+");
+
+	printf("%s\n", input);
+
+	fclose(file);
+	printf("file writen\n");
 }
