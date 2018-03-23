@@ -67,24 +67,6 @@ int search(Tree tree, char* word){
 			else 
 				return 0;
 }
-
-void prefixSaveDico(Tree tree){
-
-	printf("%c", tree->letter);
-
-	if(tree->leftChild == NULL)
-		printf(" ");
-	if(tree->leftChild != NULL){
-		prefix(tree->leftChild);
-		printf("'%cn'", 92);
-	}
-
-	if(tree->rightBro != NULL){
-		prefix(tree->rightBro);
-	}
-}
-
-
 /* Affichage à la console */
 
 void printWord(Tree tree, char* buffer, int index){
@@ -93,7 +75,7 @@ void printWord(Tree tree, char* buffer, int index){
 		return;
 	}
 
-	buffer[index]=tree->letter;
+	buffer[index] = tree->letter;
 
 	if(tree->letter == '\0'){
 		printf("%s\n", buffer);
@@ -107,4 +89,20 @@ void printWord(Tree tree, char* buffer, int index){
 void printWordFull(Tree tree){
 	char* buffer = (char*)malloc(sizeof(char)*MAXWORD);
 	printWord(tree, buffer, 0);
+}
+
+void prefixSaveDico(Tree tree){
+
+	printf("%c", tree->letter);
+
+	if(tree->leftChild == NULL)
+		printf(" ");
+	if(tree->leftChild != NULL){
+		prefixSaveDico(tree->leftChild);
+		printf("'%cn'", 92);
+	}
+
+	if(tree->rightBro != NULL){
+		prefixSaveDico(tree->rightBro);
+	}
 }
