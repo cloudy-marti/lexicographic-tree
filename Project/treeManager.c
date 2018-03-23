@@ -22,6 +22,10 @@ Tree initializeTree(char letter){
 
 int createTree(Tree* tree, char* word){
 
+	if((*word == '.') || (*word == ',') || (*word == ';') || (*word == '\'')){
+		return createTree(&(*tree), word+1);
+	}
+
 	if(*tree == NULL){
 		*tree = initializeTree(*word);
 		if(*word != '\0'){
@@ -69,7 +73,7 @@ int search(Tree tree, char* word){
 }
 /* Affichage à la console */
 
-void printWord(Tree tree, char* buffer, int index){
+void printWord(Tree tree, char* buffer, int index, FILE* file){
 
 	if(tree == NULL){
 		return;
@@ -79,16 +83,17 @@ void printWord(Tree tree, char* buffer, int index){
 
 	if(tree->letter == '\0'){
 		printf("%s\n", buffer);
+		fprintf(file, "%s\n", buffer);
 	}else {
-		printWord(tree->leftChild, buffer, index+1);
+		printWord(tree->leftChild, buffer, index+1, file);
 	}
 
-	printWord(tree->rightBro, buffer, index);
+	printWord(tree->rightBro, buffer, index, file);
 }
 
-void printWordFull(Tree tree){
+void printWordFull(Tree tree, FILE* file){
 	char* buffer = (char*)malloc(sizeof(char)*MAXWORD);
-	printWord(tree, buffer, 0);
+	printWord(tree, buffer, 0, file);
 	free(buffer);
 }
 

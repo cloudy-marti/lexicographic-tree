@@ -12,7 +12,7 @@ int main(int argc, char** argv){
 
 	Tree newTree = NULL;
 	getLexicon("hp.txt", "r", newTree);
-	
+
 	//printWordFull(newTree);
 	// FILE* file;
 

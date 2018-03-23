@@ -6,63 +6,43 @@
 #include "headers/fileManager.h"
 #include "headers/treeManager.h"
 
-char* filePath(char* fileName, char* path){
+char* joinString(char* lastWord, char* firstWord){
 
-	printf("file name : %s\n", fileName);
+	printf("file name : %s\n", lastWord);
 
-	printf("The file %s is in the folder %s\n", fileName, path);
+	printf("we will unite %s and %s\n", lastWord, firstWord);
 
-	strcat(path, fileName); // concatenate two strings
-	printf("your path : %s\n", path);
+	strcat(firstWord, lastWord); // concatenate two strings
+	printf("new file name : %s\n", firstWord);
 	
-	return path;
+	return firstWord;
 }
 // this function above allow us to retrieve the file path in a char*
-
-char* fileExt(char* fileName, char* extension){
-	printf("file name : %s\n", fileName);
-
-	printf("new extension of %s will be : %s\n", fileName, extension);
-
-	strcat(fileName, extension);
-	printf("name of file : %s\n", fileName);
-
-	return fileName;
-}
 
 void getLexicon(char* fileName, char* mode, Tree tree){
 
 	char folder[] = "txt/";
-	char* path = filePath(fileName, folder);
+	//char extension[] = ".L";
+
+	char* path = joinString(fileName, folder);
+	//char* newFile = joinString(fileName, extension);
 
 	FILE* file;
 	file = fopen(path, mode);
+
+	FILE* outFile;
+	outFile = fopen("bin/hp.txt.L", "a+");
 
 	char input[MAXWORD] = "";
 
 	while(fscanf(file, "%51s", input) != EOF){
 		*input = tolower(*input);
 		printf("word -> %s\n", input);
-
 		createTree(&tree, input);
-		//createFile(fileName, ".L", input);
 	}
 
-	printWordFull(tree);
+	printWordFull(tree, outFile);
 
 	fclose(file);
 	printf("file closed\n");
-}
-
-void createFile(char* fileName, char* extension, char* input){
-
-	char* path = filePath(fileExt(fileName, extension), "bin/");
-	FILE* file;
-
-	file = fopen(path, "a+");
-
-	printf("%s\n", input);
-
-	fclose(file);
-	printf("file writen\n");
 }
