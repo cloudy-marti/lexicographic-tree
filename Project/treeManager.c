@@ -22,7 +22,13 @@ Tree initializeTree(char letter){
 
 int createTree(Tree* tree, char* word){
 
-	if(*tree == NULL){
+	if((*word=='.') || (*word==',') || (*word==';') || (*word=='\''))
+	{
+		return createTree(&(*tree), word+1);
+	}
+
+
+	if((*tree == NULL)){
 		*tree = initializeTree(*word);
 		if(*word != '\0'){
 			return createTree(&(*tree)->leftChild, word+1);
