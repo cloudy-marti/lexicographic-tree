@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "headers/structures.h"
 #include "headers/fileManager.h"
 #include "headers/treeManager.h"
 
 char* filePath(char* fileName, char* path){
+
 	printf("file name : %s\n", fileName);
 
 	printf("The file %s is in the folder %s\n", fileName, path);
@@ -30,18 +32,23 @@ char* fileExt(char* fileName, char* extension){
 
 void getLexicon(char* fileName, char* mode, Tree tree){
 
-	char* path = filePath(fileName, "txt/");
+	char folder[] = "txt/";
+	char* path = filePath(fileName, folder);
 
 	FILE* file;
 	file = fopen(path, mode);
 
-	char* input = (char*)malloc(sizeof(char)*MAXWORD);
+	char input[MAXWORD] = "";
 
 	while(fscanf(file, "%51s", input) != EOF){
+		*input = tolower(*input);
 		printf("word -> %s\n", input);
+
 		createTree(&tree, input);
-		createFile(fileName, ".L", input);
+		//createFile(fileName, ".L", input);
 	}
+
+	printWordFull(tree);
 
 	fclose(file);
 	printf("file closed\n");

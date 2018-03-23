@@ -89,6 +89,7 @@ void printWord(Tree tree, char* buffer, int index){
 void printWordFull(Tree tree){
 	char* buffer = (char*)malloc(sizeof(char)*MAXWORD);
 	printWord(tree, buffer, 0);
+	free(buffer);
 }
 
 void prefixSaveDico(Tree tree){
