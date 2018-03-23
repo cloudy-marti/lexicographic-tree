@@ -27,6 +27,7 @@ int createTree(Tree* tree, char* word){
 	}
 
 	if(*tree == NULL){
+
 		*tree = initializeTree(*word);
 		if(*word != '\0'){
 			return createTree(&(*tree)->leftChild, word+1);
