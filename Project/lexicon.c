@@ -19,10 +19,32 @@ Tree initializeTree(char letter){
 	return newtree;
 }
 
+void printWord(Tree tree, char* buffer, int index){
+
+	if(tree == NULL){
+		return;
+	}
+
+	buffer[index]=tree->letter;
+
+	if(tree->letter == '\0'){
+		printf("%s\n", buffer);
+	}else {
+		printWord(tree->leftChild, buffer, index+1);
+	}
+
+	printWord(tree->rightBro, buffer, index);
+}
+
+void printWordFull(Tree tree){
+	char* buffer = (char*)malloc(sizeof(char)*MAXWORD);
+	printWord(tree, buffer, 0);
+}
+
 int createTree(Tree* tree, char* word){
 
+
 	if(*tree == NULL){
-		printf("so far\n");
 		*tree = initializeTree(*word);
 		if(*word != '\0'){
 			return createTree(&(*tree)->leftChild, word+1);
@@ -34,61 +56,20 @@ int createTree(Tree* tree, char* word){
 	}else if((*tree)->letter < *word){
 		return createTree(&(*tree)->rightBro, word);
 	}else if((*tree)->letter > *word){
-		initializeTree((*tree)->letter);
-		(*tree)->rightBro = *tree;
-		return createTree(&(*tree)->rightBro, word);
-	}else
+
+		Tree oldTree = *tree;
+		*tree = initializeTree(*word);
+		(*tree)->rightBro = oldTree;	
+	
+		if(word[0] != '\0'){
+			return createTree(&(*tree)->leftChild, word+1);
+		}
+		return 1;
+	}else{
 		return 0;
-}
-
-void printWord(Tree tree, char* buffer, int index){
-
-	if(tree != NULL){
-		buffer[index]=tree->letter;
-
-		if(tree->letter == '\0')
-			printf("%s\n", buffer);
-
-		else 
-			printWord(tree->leftChild, buffer, index+1);
-
-		printWord(tree->rightBro, buffer, index);
 	}
 }
 
-// int createTree(Tree* tree, char* word){
-
-// 	printf("beginning of function : %c\n", *word);
-
-// 	*tree = initializeTree(*word);
-// 	if(*word != '\0'){
-// 		printf("creating tree\n");
-// 		return createTree(&(*tree)->leftChild, word+1);
-// 	}
-// 	else
-// 		printf("condition return 1\n");
-// 		return 1;
-	
-// 	// if(*tree == NULL){
-// 	// empty tree ; create the first node and its children
-
-// 	if(*tree != NULL){
-// 		if((*tree)->letter < *word){
-// 			printf("tree->letter smaller than word\n");
-// 			return createTree(&(*tree)->rightBro, word);
-
-// 		}else if((*tree)->letter > *word){
-// 			printf("tree->letter bigger than word\n");
-// 			initializeTree((*tree)->letter);
-// 			(*tree)->rightBro = *tree;
-// 			return createTree(&(*tree)->leftChild, word+1);
-
-// 		}else
-// 			printf("condition return 0\n");
-// 			return 0;
-// 		}else
-// 			return 0;
-// }
 
 int main(int argc, char** argv){
 	/*char* word = initializeUserInput();
@@ -121,18 +102,18 @@ int main(int argc, char** argv){
 	// fclose(file);
 
 	char* word = (char*)malloc(sizeof(char)*MAXWORD); // MAXWORD : in structures.h -> 51
-    char* buff = (char*)malloc(sizeof(char)*MAXWORD);
+    // char* buff = (char*)malloc(sizeof(char)*MAXWORD);
 
-    int i = 0;
+    // int i = 0;
 
 	Tree newTree;
 	char* wiWord = (char*)malloc(sizeof(char)*MAXWORD);
 	char* newWord = (char*)malloc(sizeof(char)*MAXWORD);
 
 	printf("choose a word\n");
-	scanf("%s", wiWord);
+	scanf("%s", word);
 
-	int add = createTree(&newTree, wiWord);
+	int add = createTree(&newTree, word);
 	printf("yep\n");
 
 	if(add == 0){
@@ -140,7 +121,23 @@ int main(int argc, char** argv){
 	}else
 		printf("word added successfully !\n");
 
-	printWord(newTree, buff, i);
+	// printWord(newTree, buff, i);
+
+	printWordFull(newTree);
+
+	printf("choose a word\n");
+	scanf("%s", wiWord);
+
+	int add1 = createTree(&newTree, wiWord);
+	printf("yep\n");
+
+	if(add1 == 0){
+		printf("oops problem\n");
+	}else
+		printf("word added successfully !\n");
+
+	// printWord(newTree, buff, i);
+	printWordFull(newTree);
 
 	printf("choose a word\n");
 	scanf("%s", newWord);
@@ -152,7 +149,8 @@ int main(int argc, char** argv){
 	}else
 		printf("word added successfully !\n");
 
-	printWord(newTree, buff, i);
+	// printWord(newTree, buff, i);
+	printWordFull(newTree);
 
 
 return EXIT_SUCCESS;
