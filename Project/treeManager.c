@@ -98,18 +98,29 @@ void printWordFull(Tree tree, FILE* file){
 	free(buffer);
 }
 
-void prefixSaveDico(Tree tree){
+void prefixSaveDico(Tree tree, FILE* file){
 
-	printf("%c", tree->letter);
+	if(tree == NULL){
+		fprintf(file, "\x27\x2Fn\x27");
+		fclose(file);
+		return;
+	}
 
-	if(tree->leftChild == NULL)
+	// printf("%c", tree->letter);
+	// fprintf(file, "%c\n", tree->letter);
+
+	if(tree->leftChild == NULL){
 		printf(" ");
+		fprintf(file, " ");
+	}
+
 	if(tree->leftChild != NULL){
-		prefixSaveDico(tree->leftChild);
+		prefixSaveDico(tree->leftChild, file);
 		printf("'%cn'", 92);
+		fprintf(file, "'%cn'", 92);
 	}
 
 	if(tree->rightBro != NULL){
-		prefixSaveDico(tree->rightBro);
+		prefixSaveDico(tree->rightBro, file);
 	}
 }
