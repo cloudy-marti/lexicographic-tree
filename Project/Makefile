@@ -6,7 +6,7 @@ EXE = lexicon
 
 all : lexicon clean
 	@echo "--------------------------------------------------------------"
-	@echo "  hello, this is Marti Emilie And Sajdak Laurine's C project"
+	@echo "  hello, this is Marti Emilie and Sajdak Laurine's c project"
 	@echo "                     Lexicon Dictionary"
 	@echo ""
 	@echo "           to execute type: ./lexicon fileName.txt &"
@@ -21,18 +21,18 @@ treeManager.o :
 	gcc $(CFLAGS) -c treeManager.c
 	@echo "done ..."
 
-fileManager.o : treeManager.o
+fileManager.o :
 	@echo "compile fileManager"
 	gcc $(CFLAGS) -c fileManager.c
 	@echo "done ..."
 
-lexicon.o : treeManager.o
+lexicon.o :
 	@echo "compile lexicon"
 	gcc $(CFLAGS) -c lexicon.c
 	@echo "done ..."
 	
-lexicon : lexicon.o treeManager.o fileManager.o
-	gcc lexicon.c -o lexicon
+lexicon : treeManager.o fileManager.o lexicon.o
+	gcc treeManager.o fileManager.o lexicon.o -o lexicon
 
 clean:
 	rm -f *.o
