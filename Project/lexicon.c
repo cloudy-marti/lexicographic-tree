@@ -3,6 +3,7 @@
 #include <string.h>
 #include "headers/structures.h"
 #include "headers/fileManager.h"
+#include "headers/treeManager.h"
 
 Tree initializeTree(char letter){
 	Tree newtree = (Tree)malloc(sizeof(Node));
@@ -42,7 +43,6 @@ void printWordFull(Tree tree){
 }
 
 int createTree(Tree* tree, char* word){
-
 
 	if(*tree == NULL){
 		*tree = initializeTree(*word);

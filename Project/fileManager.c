@@ -4,8 +4,6 @@
 #include "headers/structures.h"
 #include "headers/treeManager.h"
 
-/* !!! PAS DE FONCTION MAIN !!! */
-
 int createTree(Tree* tree, char* word){
 	if(*tree == NULL){
 		*tree = initializeTree(*word);
@@ -54,7 +52,25 @@ void getLexicon(char* fileName, char* mode){
 	printf("file closed\n");
 }
 
+char* fileExt(char* fileName, char* extension){
+	printf("file name : %s\n", fileName);
+
+	printf("new extension of %s will be : %s\n", fileName, extension);
+
+	strcat(fileName, extension);
+	printf("name of file : %s\n", fileName);
+
+	return fileName;
+}
+
+void createFile(char* fileName, char* extension){
+
+	char* path = filePath(fileExt(fileName, extension), "bin/");
+
+	FILE* newFile;
+	
+}
+
 void saveLexicon(Tree tree){
 
 }
-
