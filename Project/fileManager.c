@@ -63,7 +63,7 @@ void getLexicon(char* fileName, char* command, Tree tree, char* word){
 		remove(outputFile);
 	}else if(strcmp(command, "-S") == 0){
 		FILE* outDico;
-		outDico = fopen(outputDicoFile, "a+");
+		outDico = fopen(outputDicoFile, "a");
 		prefixSaveDico(tree, outDico);
 		remove(outputFile);
 		fclose(outDico);
