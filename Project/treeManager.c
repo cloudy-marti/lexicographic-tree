@@ -3,8 +3,6 @@
 #include "headers/structures.h"
 #include "headers/treeManager.h"
 
-/* ici les fonctions qui vont gérer la structure de l'arbre */
-
 Tree initializeTree(char letter){
 	Tree newtree = (Tree)malloc(sizeof(Node));
 
@@ -33,7 +31,7 @@ int createTree(Tree* tree, char* word){
 			return createTree(&(*tree)->leftChild, word+1);
 		}else
 			return 1;
-	// empty tree ; create the first node and its children
+	/* empty tree ; create the first node and its children */
 	}else if((*tree)->letter == *word){
 		return createTree(&(*tree)->leftChild, word+1);
 	}else if((*tree)->letter < *word){
@@ -53,7 +51,7 @@ int createTree(Tree* tree, char* word){
 	}
 }
 
-// search a word in our tree.
+/* search a word in our tree. */
 int search(Tree tree, char* word){
 
 	if(tree == NULL)
@@ -74,7 +72,7 @@ int search(Tree tree, char* word){
 }
 /* Affichage à la console */
 
-void printWord(Tree tree, char* buffer, int index, FILE* file){
+void printWord(Tree tree, char* buffer, int index, FILE* file, int mode){
 
 	if(tree == NULL){
 		return;
@@ -83,18 +81,21 @@ void printWord(Tree tree, char* buffer, int index, FILE* file){
 	buffer[index] = tree->letter;
 
 	if(tree->letter == '\0'){
-		printf("%s\n", buffer);
-		fprintf(file, "%s\n", buffer);
+		if(mode == 0){
+			printf("%s\n", buffer);
+		}else if(mode == 1){
+			fprintf(file, "%s\n", buffer);
+		}
 	}else {
-		printWord(tree->leftChild, buffer, index+1, file);
+		printWord(tree->leftChild, buffer, index+1, file, mode);
 	}
 
-	printWord(tree->rightBro, buffer, index, file);
+	printWord(tree->rightBro, buffer, index, file, mode);
 }
 
-void printWordFull(Tree tree, FILE* file){
+void printWordFull(Tree tree, FILE* file, int mode){
 	char* buffer = (char*)malloc(sizeof(char)*MAXWORD);
-	printWord(tree, buffer, 0, file);
+	printWord(tree, buffer, 0, file, mode);
 	free(buffer);
 }
 
@@ -124,31 +125,31 @@ void prefixSaveDico(Tree tree, FILE* file){
 	}
 }
 
-// int createTreeFromDico(Tree* tree, char input){
+/*int createTreeFromDico(Tree* tree, char input){
 
-// 	if(*tree == NULL){
+	if(*tree == NULL){
 
-// 		*tree = initializeTree(*word);
-// 		if(*word != '\0'){
-// 			return createTree(&(*tree)->leftChild, word+1);
-// 		}else
-// 			return 1;
-// 	// empty tree ; create the first node and its children
-// 	}else if((*tree)->letter == *word){
-// 		return createTree(&(*tree)->leftChild, word+1);
-// 	}else if((*tree)->letter < *word){
-// 		return createTree(&(*tree)->rightBro, word);
-// 	}else if((*tree)->letter > *word){
+		*tree = initializeTree(*word);
+		if(*word != '\0'){
+			return createTree(&(*tree)->leftChild, word+1);
+		}else
+			return 1;
+	// empty tree ; create the first node and its children
+	}else if((*tree)->letter == *word){
+		return createTree(&(*tree)->leftChild, word+1);
+	}else if((*tree)->letter < *word){
+		return createTree(&(*tree)->rightBro, word);
+	}else if((*tree)->letter > *word){
 
-// 		Tree oldTree = *tree;
-// 		*tree = initializeTree(*word);
-// 		(*tree)->rightBro = oldTree;	
+		Tree oldTree = *tree;
+		*tree = initializeTree(*word);
+		(*tree)->rightBro = oldTree;	
 	
-// 		if(word[0] != '\0'){
-// 			return createTree(&(*tree)->leftChild, word+1);
-// 		}
-// 		return 1;
-// 	}else{
-// 		return 0;
-// 	}
-// }
+		if(word[0] != '\0'){
+			return createTree(&(*tree)->leftChild, word+1);
+		}
+		return 1;
+	}else{
+		return 0;
+	}
+}*/

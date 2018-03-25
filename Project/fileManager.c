@@ -7,12 +7,18 @@
 #include "headers/treeManager.h"
 
 char* joinString(char* lastWord, char* firstWord){
-	strcat(firstWord, lastWord); // concatenate two strings
+	strcat(firstWord, lastWord); /*concatenate two strings */
 	return firstWord;
 }
-// this function above allow us to retrieve the file path in a char*
+/* this function above allow us to retrieve the file path in a char* */
 
-void getLexicon(char* fileName, char* command, Tree tree){
+void getLexicon(char* fileName, char* command, Tree tree, char* word){
+
+	if(strlen(fileName) > 11){
+		printf("the name of the file is too long. Please rename it with 7 characters max + .txt\n");
+		printf("end of program\n");
+		return;
+	}
 
 	char inputFolder[] = "txt/";
 	char outputFolder[] = "bin/";
@@ -28,15 +34,18 @@ void getLexicon(char* fileName, char* command, Tree tree){
 	FILE* file;
 	file = fopen(inputPath, "r");
 
+	if(file == NULL){
+		printf("this file doesn't exist or it isn't in the right folder\n");
+		printf("end of program\n");
+		return;
+	}
+
 	FILE* outFile;
 	outFile = fopen(outputFile, "a+");
 
-	FILE* outDico;
-	outDico = fopen(outputDicoFile, "a+");
-
 	char input[MAXWORD] = "";
 
-	printf("Reading text :\n\n");
+	printf("\nReading text :\n\n");
 
 	while(fscanf(file, "%51s", input) != EOF){
 		printf("%s ", input);
@@ -45,11 +54,31 @@ void getLexicon(char* fileName, char* command, Tree tree){
 	}
 	printf("\n\n");
 
-	printWordFull(tree, outFile);
-	prefixSaveDico(tree, outDico);
+	if(strcmp(command, "-r") == 0){
+		if(search(tree, word) == 1){
+			printf("the word '%s' is here ! :3\n", word);
+		}else{
+			printf("the word '%s' isn't here ...\n", word);
+		}
+		remove(outputFile);
+	}else if(strcmp(command, "-S") == 0){
+		FILE* outDico;
+		outDico = fopen(outputDicoFile, "a+");
+		prefixSaveDico(tree, outDico);
+		remove(outputFile);
+		fclose(outDico);
+		printf("check your new amazing file in the bin/ folder !\n");
+	}else if(strcmp(command, "-s") == 0){
+		printWordFull(tree, outFile, 1);
+		fclose(outFile);
+		printf("check your new amazing file in the bin/ folder !\n");
+	}else if(strcmp(command, "-l") == 0){
+		printWordFull(tree, outFile, 0);
+		remove(outputFile);
+	}else{
+		printf("something is missing\n");
+	}
 
 	fclose(file);
-	fclose(outFile);
-	fclose(outDico);
-	printf("file closed\n");
+	printf("end of program\n");
 }

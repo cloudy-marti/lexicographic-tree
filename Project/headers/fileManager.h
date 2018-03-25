@@ -2,6 +2,6 @@
 #define FILEMANAGER__H
 
 char* joinString(char* fileName, char* path);
-void getLexicon(char* fileName, Tree tree);
+void getLexicon(char* fileName, char* command, Tree tree, char* word);
 
 #endif

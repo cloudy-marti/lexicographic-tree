@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -g -Wall
+CFLAGS = -ansi -g -Wall
 HEADERS = structures.h treeManager.h fileManager.h
 FILE = lexicon.c treeManager.c fileManager.c
 EXE = lexicon
@@ -10,8 +10,8 @@ all : lexicon clean
 	@echo "                     Lexicon Dictionary"
 	@echo ""
 	@echo "           to execute type: ./lexicon fileName.txt &"
-	@echo "              txt file has to be in file/ folder"
-	@echo "                 example : ./lexicon hp.txt &"
+	@echo "               .txt file must be in file/ folder"
+	@echo "                example : ./lexicon -s hp.txt &"
 	@echo ""
 	@echo "           .L and .DICO files will be in bin/ folder"
 	@echo "--------------------------------------------------------------"
