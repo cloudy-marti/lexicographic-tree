@@ -9,7 +9,7 @@
 
 int main(int argc, char** argv){
 
-	Tree newTree = NULL;
+/*	Tree newTree = NULL;
 	char* command = argv[1];
 	char* newCommand = (char*)malloc(sizeof(char)*2);
 
@@ -55,10 +55,18 @@ int main(int argc, char** argv){
 				getLexicon(argv[1], newCommand, newTree, "trash");
 			}
 		}
-	}
+	}*/
 
+	Tree tree = NULL;
 
+	FILE* dicoFile;
+	dicoFile = fopen("hp.txt.DICO", "r");
 
+	FILE* outFile;
+	outFile = fopen("bin/hp.txt.DICO.L", "a+");
+
+	createTreeFromDico(&tree, dicoFile);
+	printWordFull(tree, outFile, 0);
 
 	return EXIT_SUCCESS;
 }

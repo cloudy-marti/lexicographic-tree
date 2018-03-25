@@ -125,31 +125,28 @@ void prefixSaveDico(Tree tree, FILE* file){
 	}
 }
 
-/*int createTreeFromDico(Tree* tree, char input){
+void createTreeFromDico(Tree* tree, FILE* fileName){
+	char letter;
 
-	if(*tree == NULL){
-
-		*tree = initializeTree(*word);
-		if(*word != '\0'){
-			return createTree(&(*tree)->leftChild, word+1);
-		}else
-			return 1;
-	// empty tree ; create the first node and its children
-	}else if((*tree)->letter == *word){
-		return createTree(&(*tree)->leftChild, word+1);
-	}else if((*tree)->letter < *word){
-		return createTree(&(*tree)->rightBro, word);
-	}else if((*tree)->letter > *word){
-
-		Tree oldTree = *tree;
-		*tree = initializeTree(*word);
-		(*tree)->rightBro = oldTree;	
-	
-		if(word[0] != '\0'){
-			return createTree(&(*tree)->leftChild, word+1);
-		}
-		return 1;
+	if(fscanf(fileName, "%c", &letter) == EOF){
+		return;
 	}else{
-		return 0;
+		if(letter == '\n'){
+			return;
+		}else if(letter == ' '){
+			*tree = initializeTree('\0');
+			if(tree == NULL){
+				return;
+			}else
+			createTreeFromDico(&(*tree)->rightBro, fileName);
+		}else{
+			*tree = initializeTree(letter);
+			if(tree == NULL){
+				return;
+			}else{
+				createTreeFromDico(&(*tree)->leftChild, fileName);
+				createTreeFromDico(&(*tree)->rightBro, fileName);
+			}
+		}
 	}
-}*/
+}

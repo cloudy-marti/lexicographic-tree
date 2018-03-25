@@ -7,5 +7,6 @@ int search(Tree tree, char* word);
 void printWord(Tree tree, char* buffer, int index, FILE* file, int mode);
 void printWordFull(Tree tree, FILE* file, int mode);
 void prefixSaveDico(Tree tree, FILE* file);
+void createTreeFromDico(Tree* tree, FILE* fileName);
 
 #endif
