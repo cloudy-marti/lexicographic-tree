@@ -123,3 +123,32 @@ void prefixSaveDico(Tree tree, FILE* file){
 		prefixSaveDico(tree->rightBro, file);
 	}
 }
+
+// int createTreeFromDico(Tree* tree, char input){
+
+// 	if(*tree == NULL){
+
+// 		*tree = initializeTree(*word);
+// 		if(*word != '\0'){
+// 			return createTree(&(*tree)->leftChild, word+1);
+// 		}else
+// 			return 1;
+// 	// empty tree ; create the first node and its children
+// 	}else if((*tree)->letter == *word){
+// 		return createTree(&(*tree)->leftChild, word+1);
+// 	}else if((*tree)->letter < *word){
+// 		return createTree(&(*tree)->rightBro, word);
+// 	}else if((*tree)->letter > *word){
+
+// 		Tree oldTree = *tree;
+// 		*tree = initializeTree(*word);
+// 		(*tree)->rightBro = oldTree;	
+	
+// 		if(word[0] != '\0'){
+// 			return createTree(&(*tree)->leftChild, word+1);
+// 		}
+// 		return 1;
+// 	}else{
+// 		return 0;
+// 	}
+// }

@@ -7,18 +7,12 @@
 #include "headers/treeManager.h"
 
 char* joinString(char* lastWord, char* firstWord){
-
-	printf("file name : %s\n", lastWord);
-	printf("we will unite %s and %s\n", lastWord, firstWord);
-
 	strcat(firstWord, lastWord); // concatenate two strings
-	printf("new file name : %s\n", firstWord);
-	
 	return firstWord;
 }
 // this function above allow us to retrieve the file path in a char*
 
-void getLexicon(char* fileName, char* mode, Tree tree){
+void getLexicon(char* fileName, char* command, Tree tree){
 
 	char inputFolder[] = "txt/";
 	char outputFolder[] = "bin/";
@@ -32,7 +26,7 @@ void getLexicon(char* fileName, char* mode, Tree tree){
 	char* outputDicoFile = joinString(".DICO", outputDico);
 
 	FILE* file;
-	file = fopen(inputPath, mode);
+	file = fopen(inputPath, "r");
 
 	FILE* outFile;
 	outFile = fopen(outputFile, "a+");
