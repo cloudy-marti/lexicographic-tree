@@ -9,18 +9,7 @@
 int main(int argc, char** argv){
 
 	runLexicon(argc, argv);
-
-	/*Tree tree = NULL;
-
-	FILE* dicoFile;
-	dicoFile = fopen("hp.txt.DICO", "r");
-	printf("what\n");
-
-	FILE* outFile;
-	outFile = fopen("bin/hp.txt.DICO.L", "a+");
-
-	createTreeFromDico(&tree, dicoFile);
-	printWordFull(tree, outFile, 1);*/
+	runFromDico(argv);
 
 	return EXIT_SUCCESS;
 }

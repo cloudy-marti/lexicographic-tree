@@ -80,7 +80,46 @@ void getLexicon(char* fileName, char* command, Tree tree, char* word){
 	}
 
 	fclose(file);
-	printf("end of program\n");
+}
+
+int getCommandIndex(int argc, char** argv){
+
+	if(*argv[1] == '-'){
+		return 1;
+	}else
+		return 0;
+}
+
+char* getFileName(int argc, char** argv){
+
+	if(*argv[1] == '-'){
+		if(strcmp(argv[1], "-r") == 0){
+			return 3;
+		}else
+			return 2;
+		}
+	}else{
+		printf("menu :\ndisplay lexicon -> type '-l'\nsave lexicon -> type '-s'\nsearch word -> type '-r'\nsave tree -> type '-S'\n\n");
+		scanf("%s", newCommand);
+		if(strcmp(newCommand, "-r") == 0){
+			if(argc == 3){
+				printf("your file : %s\nyour word : %s\n", argv[2], argv[1]);
+				*argv[1] = tolower(*argv[1]);
+				getLexicon(argv[2], newCommand, newTree, argv[1]);
+			}else{
+				printf("check your arguments ...\n");
+				return;
+			}
+		}else{
+			if(argc != 2){
+				printf("check your arguments ...\n");
+				return;
+			}else{
+				printf("your file : %s\n", argv[1]);
+				getLexicon(argv[1], newCommand, newTree, "trash");
+			}
+		}
+	}
 }
 
 void runLexicon(int argc, char** argv){
@@ -130,5 +169,47 @@ void runLexicon(int argc, char** argv){
 				getLexicon(argv[1], newCommand, newTree, "trash");
 			}
 		}
+	}
+}
+
+void runFromDico(char** argv){
+	Tree tree = NULL;
+
+	int userInput = 0;
+	char path[MAXWORD] = " ";
+
+	printf("would you like to read a .DICO file ?\n1 = Yes\n0 = Nope\n");
+	scanf("%d", &userInput);
+
+	switch(userInput){
+		case 1 :
+			printf("OK let's do this\nPut your .DICO file in the main folder (Project/) and write its name :");
+			scanf("%s", path);
+
+			FILE* dicoFile;
+			if((dicoFile = fopen(path, "r")) == NULL){
+				printf("we didn't find your file :( ...\n");
+				return;
+			}
+
+			char outputFile[] = ".L";
+
+			strcat(outputFile, path);
+
+			FILE* outFile;
+			outFile = fopen(outputFile, "a+");
+
+			createTreeFromDico(&tree, dicoFile);
+			printWordFull(tree, outFile, 1);
+			fclose(outFile);
+			break;
+
+		case 0 :
+			printf("ok bye\n");
+			break;
+
+		default :
+			printf("your answer wasn't valid.bye\n");
+			break;		
 	}
 }
