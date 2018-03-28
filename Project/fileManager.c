@@ -41,7 +41,7 @@ void getLexicon(char* fileName, char* command, Tree tree, char* word){
 	}
 
 	FILE* outFile;
-	outFile = fopen(outputFile, "a+");
+	outFile = fopen(outputFile, "w");
 
 	char input[MAXWORD] = "";
 
@@ -55,6 +55,8 @@ void getLexicon(char* fileName, char* command, Tree tree, char* word){
 	printf("\n\n");
 
 	if(strcmp(command, "-r") == 0){
+		printf("searching word ...\n");
+		*word = tolower(*word);
 		if(search(tree, word) == 1){
 			printf("the word '%s' is here ! :3\n", word);
 		}else{
@@ -63,7 +65,7 @@ void getLexicon(char* fileName, char* command, Tree tree, char* word){
 		remove(outputFile);
 	}else if(strcmp(command, "-S") == 0){
 		FILE* outDico;
-		outDico = fopen(outputDicoFile, "a");
+		outDico = fopen(outputDicoFile, "w");
 		prefixSaveDico(tree, outDico);
 		remove(outputFile);
 		fclose(outDico);
@@ -82,108 +84,67 @@ void getLexicon(char* fileName, char* command, Tree tree, char* word){
 	fclose(file);
 }
 
-int getCommandIndex(int argc, char** argv){
-
-	if(*argv[1] == '-'){
-		return 1;
-	}else
+int getCommandIndex(char** argv){
+	if(argv[1] == NULL){
 		return 0;
+	}else{
+		if(*argv[1] == '-'){
+			return 1;
+		}else
+			return 0;
+	}
 }
 
-char* getFileName(int argc, char** argv){
-
-	if(*argv[1] == '-'){
-		if(strcmp(argv[1], "-r") == 0){
-			return 3;
-		}else
-			return 2;
-		}
+int getFileNameIndex(char** argv){
+	if(argv[1] == NULL){
+		return 0;
 	}else{
-		printf("menu :\ndisplay lexicon -> type '-l'\nsave lexicon -> type '-s'\nsearch word -> type '-r'\nsave tree -> type '-S'\n\n");
-		scanf("%s", newCommand);
-		if(strcmp(newCommand, "-r") == 0){
-			if(argc == 3){
-				printf("your file : %s\nyour word : %s\n", argv[2], argv[1]);
-				*argv[1] = tolower(*argv[1]);
-				getLexicon(argv[2], newCommand, newTree, argv[1]);
-			}else{
-				printf("check your arguments ...\n");
-				return;
-			}
-		}else{
-			if(argc != 2){
-				printf("check your arguments ...\n");
-				return;
-			}else{
-				printf("your file : %s\n", argv[1]);
-				getLexicon(argv[1], newCommand, newTree, "trash");
-			}
-		}
+		if(*argv[1] == '-'){
+			if(strcmp(argv[1], "-r") == 0){
+				return 3;
+			}else
+				return 2;
+		}else
+			return 1;
 	}
 }
 
 void runLexicon(int argc, char** argv){
 	Tree newTree = NULL;
-	char* command = argv[1];
-	char* newCommand = (char*)malloc(sizeof(char)*2);
 
-	if(*argv[1] == '-'){
-		command = argv[1];
-		printf("your command : %s\n", argv[1]);
-		if(strcmp(argv[1], "-r") == 0){
-			if(argc == 4){
-				printf("your file : %s\nyour word : %s\n", argv[3], argv[2]);
-				*argv[2] = tolower(*argv[2]);
-				getLexicon(argv[3], command, newTree, argv[2]);
-			}else{
-				printf("check your arguments ...\n");
-				return;
-			}
+	int commandIndex = getCommandIndex(argv);
+	int fileNameIndex = getFileNameIndex(argv);
+
+	if(commandIndex != 0){
+		if(argv[fileNameIndex] == NULL){
+			printf("check your arguments ...\n");
 		}else{
-			if(argc != 3){
-				printf("check your arguments ...\n");
-				return;
-			}else{
-				printf("your file : %s\n", argv[2]);
-				getLexicon(argv[2], command, newTree, "trash");
-			}
-		}
-	}else{
-		printf("menu :\ndisplay lexicon -> type '-l'\nsave lexicon -> type '-s'\nsearch word -> type '-r'\nsave tree -> type '-S'\n\n");
-		scanf("%s", newCommand);
-		if(strcmp(newCommand, "-r") == 0){
-			if(argc == 3){
-				printf("your file : %s\nyour word : %s\n", argv[2], argv[1]);
-				*argv[1] = tolower(*argv[1]);
-				getLexicon(argv[2], newCommand, newTree, argv[1]);
-			}else{
-				printf("check your arguments ...\n");
-				return;
-			}
-		}else{
-			if(argc != 2){
-				printf("check your arguments ...\n");
-				return;
-			}else{
-				printf("your file : %s\n", argv[1]);
-				getLexicon(argv[1], newCommand, newTree, "trash");
-			}
+			printf("your file : %s\n", argv[2]);
+			getLexicon(argv[fileNameIndex], argv[commandIndex], newTree, argv[fileNameIndex - 1]);
 		}
 	}
 }
 
-void runFromDico(char** argv){
+void runFromDico(){
 	Tree tree = NULL;
+
+	FILE* outFile;
 
 	int userInput = 0;
 	char path[MAXWORD] = " ";
+	char* commandInput = (char*)malloc(sizeof(char)*2);
+	char* word = (char*)malloc(sizeof(char)*MAXWORD);
+	
+	char outputFile[] = ".L";
+	strcat(outputFile, path);
+	outFile = fopen(outputFile, "w");
 
 	printf("would you like to read a .DICO file ?\n1 = Yes\n0 = Nope\n");
 	scanf("%d", &userInput);
 
 	switch(userInput){
 		case 1 :
-			printf("OK let's do this\nPut your .DICO file in the main folder (Project/) and write its name :");
+			printf("OK let's do this\nPut your .DICO file in the main folder (Project/) and write its name :\n");
 			scanf("%s", path);
 
 			FILE* dicoFile;
@@ -192,16 +153,29 @@ void runFromDico(char** argv){
 				return;
 			}
 
-			char outputFile[] = ".L";
-
-			strcat(outputFile, path);
-
-			FILE* outFile;
-			outFile = fopen(outputFile, "a+");
-
 			createTreeFromDico(&tree, dicoFile);
-			printWordFull(tree, outFile, 1);
-			fclose(outFile);
+
+			printf("what is your command ?\n-r = search a word\n-l = display all words\n-s = save words in .L file\n");
+			scanf("%2s", commandInput);
+
+			if(strcmp(commandInput, "-r") == 0){
+				printf("type the word you want to search :\n");
+				scanf("%51s", word);
+				if(search(tree, word) == 1){
+					printf("the word '%s' is here ! :3\n", word);
+				}else{
+					printf("the word '%s' isn't here ...\n", word);
+				}
+			}else if(strcmp(commandInput, "-s")){
+				printWordFull(tree, outFile, 1);
+				fclose(outFile);
+			}else if(strcmp(commandInput, "-l")){
+				printWordFull(tree, outFile, 0);
+				remove(outputFile);
+			}else{
+				printf("wrong command ... bye\n");
+				return;
+			}
 			break;
 
 		case 0 :

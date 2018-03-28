@@ -105,22 +105,16 @@ void prefixSaveDico(Tree tree, FILE* file){
 		printf("\n");
 		fprintf(file, "\n");
 	}
+	else {
+		if(tree->letter == '\0'){
+			printf(" ");
+			fprintf(file, " ");
+		}else{
+			printf("%c", tree->letter);
+			fprintf(file, "%c", tree->letter);
+		}
 
-	if(tree->letter == '\0'){
-		printf(" ");
-		fprintf(file, " ");
-	}else{
-		printf("%c", tree->letter);
-		fprintf(file, "%c", tree->letter);
-	}
-
-	if(tree->leftChild != NULL){
 		prefixSaveDico(tree->leftChild, file);
-		printf("\n");
-		fprintf(file, "\n");
-	}
-
-	if(tree->rightBro != NULL){
 		prefixSaveDico(tree->rightBro, file);
 	}
 }
